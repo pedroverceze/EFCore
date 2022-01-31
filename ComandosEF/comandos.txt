@@ -1,0 +1,16 @@
+
+-> instalando os pacotes
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+
+
+-> criar migration:
+dotnet ef migrations add primeiraMigracao
+
+-> gerar scripts utilizando a migration
+dotnet ef migrations script -o .\Data\ScriptPrimeiraMigracao.sql
+
+-> aplicando a migraçao no banco
+dotnet ef database update
