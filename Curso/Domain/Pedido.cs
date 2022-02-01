@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Curso.ValueObjects;
 
 namespace PedidoConsole.Domain

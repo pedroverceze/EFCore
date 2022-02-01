@@ -12,5 +12,11 @@ dotnet ef migrations add primeiraMigracao
 -> gerar scripts utilizando a migration
 dotnet ef migrations script -o .\Data\ScriptPrimeiraMigracao.sql
 
+-> Gerar script com idepotencia
+dotnet ef migrations script -o .\Data\ScriptIdepotente.sql -i
+
 -> aplicando a migraçao no banco
 dotnet ef database update
+
+-> Remover ultima migracao executada e remover os arquivos desta
+dotnet ef migrations remove

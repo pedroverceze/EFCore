@@ -122,7 +122,7 @@ namespace PedidoConsole.Migrations
 
                     b.HasIndex("ProdutoId");
 
-                    b.ToTable("PedidoItem");
+                    b.ToTable("PedidoItem", (string)null);
                 });
 
             modelBuilder.Entity("PedidoConsole.Domain.Produto", b =>
