@@ -9,7 +9,7 @@ namespace PedidoConsole // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
-            InserirDados();
+            InserirEmMassa();
         }
 
         public static void InserirDados()
@@ -47,23 +47,25 @@ namespace PedidoConsole // Note: actual namespace depends on the project name.
 
             var produto = new Produto
             {
-                Descricao = "teste",
-                Ativo = true,
-                CodigoBarras = "123456789",
-                Valor = 23,
-                TipoProduto = Curso.ValueObjects.TipoProduto.Tipo1
+                Descricao = "teste2",
+                Ativo = false,
+                CodigoBarras = "1234sd56789",
+                Valor = 15,
+                TipoProduto = Curso.ValueObjects.TipoProduto.Tipo2
             };
 
             var cliente = new Cliente{
                 Nome = "Pedro",
                 CEP = "86050280",
                 Cidade = "londrina",
-                Email = "teste@teste.com",
                 Estado = "PR",
                 Telefone = "98889988"
             };
 
             using var db = new ApplicationContext();
+
+            db.AddRange(produto, cliente);
+            var registros = db.SaveChanges();
 
         }
     }
