@@ -11,13 +11,10 @@ namespace PedidoConsole // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
-            AtualizarDados();
+            RemoverRegistros();
         }
 
-        private static void AtualizarDados()
-        {
-            throw new NotImplementedException();
-        }
+        
 
         private static void InserirDados()
         {
@@ -54,17 +51,17 @@ namespace PedidoConsole // Note: actual namespace depends on the project name.
 
             var produto = new Produto
             {
-                Descricao = "teste2",
+                Descricao = "teste233",
                 Ativo = false,
-                CodigoBarras = "1234sd56789",
+                CodigoBarras = "1234sd5673389",
                 Valor = 15,
-                TipoProduto = Curso.ValueObjects.TipoProduto.Tipo2
+                TipoProduto = Curso.ValueObjects.TipoProduto.Tipo1
             };
 
             var cliente = new Cliente{
-                Nome = "Pedro",
+                Nome = "Teste 2",
                 CEP = "86050280",
-                Cidade = "londrina",
+                Cidade = "SP",
                 Estado = "PR",
                 Telefone = "98889988"
             };
@@ -129,6 +126,51 @@ namespace PedidoConsole // Note: actual namespace depends on the project name.
             .Include(p => p.Itens)
             .ThenInclude(i=>i.Produto)
             .ToList();
+        }
+
+        private static void AtualizarDados()
+        {
+            using var db = new ApplicationContext();
+            
+            //1 forma
+            //var cli = db.Set<Cliente>().FirstOrDefault(c => c.Id == 1);
+            //cli.Nome = "cliente alterado de novo";
+
+            //db.Update(cli);
+            //db.SaveChanges();
+
+            //2 forma, atualizando um dado que venha do front por ex
+            // var cli = db.Set<Cliente>().FirstOrDefault(c => c.Id == 1);
+            
+
+            // var modelCliente = new{
+            //     Nome = "cliente desconectado",
+            //     Telefone = "8787978"
+            // };
+
+            // db.Entry<Cliente>(cli).CurrentValues.SetValues(modelCliente);
+            
+            // db.SaveChanges();
+
+            //3 forma usando o attach
+             var modelCliente = new{
+                Nome = "cliente desconectado passo 3",
+                Telefone = "8787978"
+            };
+
+            var cliente = new Cliente{
+                Id = 1
+            };
+
+            db.Attach(cliente);
+            db.Entry(cliente).CurrentValues.SetValues(modelCliente);
+            db.SaveChanges();
+        }
+
+        private static void RemoverRegistros(){
+            using var db = new ApplicationContext();
+
+
         }
     }
 }
