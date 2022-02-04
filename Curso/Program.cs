@@ -175,10 +175,11 @@ namespace PedidoConsole // Note: actual namespace depends on the project name.
             db.Set<Cliente>().Remove(cliente);
 
             //second 2
-            db.Remove(cliente);
-            db.Entry(cliente).State = EntityState.Deleted;
+            //db.Remove(cliente);
 
             //third way
+            //db.Entry(cliente).State = EntityState.Deleted;
+
             db.SaveChanges();
         }
     }
