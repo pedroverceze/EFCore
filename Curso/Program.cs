@@ -14,8 +14,6 @@ namespace PedidoConsole // Note: actual namespace depends on the project name.
             RemoverRegistros();
         }
 
-        
-
         private static void InserirDados()
         {
             var db = new ApplicationContext();
@@ -29,13 +27,13 @@ namespace PedidoConsole // Note: actual namespace depends on the project name.
                 TipoProduto = Curso.ValueObjects.TipoProduto.Tipo1
             };
 
-            //1 forma
+            //first way
             db.Set<Produto>().Add(produto);
 
-            //2 forma
+            //second way
             //db.Entry(produto).State = EntityState.Added;
 
-            //3 forma
+            //third way
             //db.Add(produto);
 
             var registros = db.SaveChanges();
@@ -75,17 +73,17 @@ namespace PedidoConsole // Note: actual namespace depends on the project name.
         private static void ConsultarDados(){
             using var db = new ApplicationContext();
 
-            //consulta rastreada
+            //tracked query
             var clientes = db.Set<Cliente>()
             .Where(c => c.Id > 0)
             .OrderBy(o => o.Nome)
             .ToList();
 
-            //consulta nao rastreada
+            //not tracked query
             var clientesNoTracking = db.Set<Cliente>().AsNoTracking().Where(c => c.Id > 0).ToList();
 
             foreach(var cliente in clientes){
-                //FIND metodo que verifica na memoria
+                //FIND -> method that verifies in memory
                 var buscarPorFind = db.Set<Cliente>().Find(cliente.Id);
             }
 
@@ -121,7 +119,7 @@ namespace PedidoConsole // Note: actual namespace depends on the project name.
         private static void ConsultarComCarregamentoAdiantado(){
             using var db = new ApplicationContext();
 
-            //COnsulta com carregamento adiantado, onde ja carrega todos os subobjetos
+            //query with advance loading, where load all of sub objects
             var pedido = db.Set<Pedido>()
             .Include(p => p.Itens)
             .ThenInclude(i=>i.Produto)
@@ -132,14 +130,14 @@ namespace PedidoConsole // Note: actual namespace depends on the project name.
         {
             using var db = new ApplicationContext();
             
-            //1 forma
+            //first way
             //var cli = db.Set<Cliente>().FirstOrDefault(c => c.Id == 1);
             //cli.Nome = "cliente alterado de novo";
 
             //db.Update(cli);
             //db.SaveChanges();
 
-            //2 forma, atualizando um dado que venha do front por ex
+            //second way, data updating from model or dto
             // var cli = db.Set<Cliente>().FirstOrDefault(c => c.Id == 1);
             
 
@@ -152,7 +150,7 @@ namespace PedidoConsole // Note: actual namespace depends on the project name.
             
             // db.SaveChanges();
 
-            //3 forma usando o attach
+            //third way - using attach
              var modelCliente = new{
                 Nome = "cliente desconectado passo 3",
                 Telefone = "8787978"
@@ -170,7 +168,18 @@ namespace PedidoConsole // Note: actual namespace depends on the project name.
         private static void RemoverRegistros(){
             using var db = new ApplicationContext();
 
+            //using the FIND method, you can pass a number as a argument, it will search using the primary key
+            var cliente = db.Set<Cliente>().Find(2);
 
+            //first way
+            db.Set<Cliente>().Remove(cliente);
+
+            //second 2
+            db.Remove(cliente);
+            db.Entry(cliente).State = EntityState.Deleted;
+
+            //third way
+            db.SaveChanges();
         }
     }
 }
