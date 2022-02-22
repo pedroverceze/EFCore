@@ -4,6 +4,7 @@ using System.Linq;
 using Curso.Data;
 using Microsoft.EntityFrameworkCore;
 using PedidoConsole.Domain;
+using PedidoConsole.Domain.Interfaces;
 
 namespace PedidoConsole // Note: actual namespace depends on the project name.
 {
@@ -11,7 +12,7 @@ namespace PedidoConsole // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
-            RemoverRegistros();
+            UsingGenericRepository();
         }
 
         private static void InserirDados()
@@ -181,6 +182,14 @@ namespace PedidoConsole // Note: actual namespace depends on the project name.
             //db.Entry(cliente).State = EntityState.Deleted;
 
             db.SaveChanges();
+        }
+
+        private static void UsingGenericRepository()
+        {
+            using var db = new ApplicationContext();
+            var clientRepo = new GenericRepository<Cliente>(db);
+
+            var cliente = clientRepo.GetById(1).ToList();
         }
     }
 }

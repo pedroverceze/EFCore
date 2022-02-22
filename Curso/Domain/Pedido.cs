@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Curso.ValueObjects;
+using PedidoConsole.Domain.Interfaces;
 
 namespace PedidoConsole.Domain
 {
-    public class Pedido{
+    public class Pedido : IEntity{
         public int Id {get; set;}
         public int ClienteId { get; set; }
         public Cliente Cliente { get; set; }

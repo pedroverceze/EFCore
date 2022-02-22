@@ -1,6 +1,8 @@
+using PedidoConsole.Domain.Interfaces;
+
 namespace PedidoConsole.Domain
 {
-    public class Cliente{
+    public class Cliente : IEntity{
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Telefone { get; set; }

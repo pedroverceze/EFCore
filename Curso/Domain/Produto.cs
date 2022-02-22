@@ -1,8 +1,10 @@
 using Curso.ValueObjects;
+using PedidoConsole.Domain.Interfaces;
 
 namespace PedidoConsole.Domain
 {
-    public class Produto{
+    public class Produto : IEntity
+    {
         public int Id { get; set; }
         public string CodigoBarras { get; set; }
         public string Descricao { get; set; }

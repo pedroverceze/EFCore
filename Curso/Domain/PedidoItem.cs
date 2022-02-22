@@ -1,8 +1,9 @@
 using PedidoConsole.Domain;
+using PedidoConsole.Domain.Interfaces;
 
 namespace PedidoConsole.Domain
 {
-    public class PedidoItem
+    public class PedidoItem : IEntity
     {
         public int Id { get; set; }
         public int PedidoId { get; set; }
